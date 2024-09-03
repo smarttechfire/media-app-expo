@@ -9,8 +9,10 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import { theme } from '../constants/theme';
 import { wp, hp } from '../helpers/common';
+import { supabase } from '../utils/supabase';
 
 import ScreenWrapper from '~/components/ScreenWrapper';
+
 
 export default function SignUp() {
   const router = useRouter();
@@ -20,9 +22,35 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
-    if (!emailRef.current || !passwordRef.current || nameRef.current) {
+    if (!emailRef.current || !passwordRef.current || !nameRef.current) {
       Alert.alert('Sign Up', 'please fill all the fields!');
-      
+      return;
+    }
+    const name = nameRef.current.trim();
+    const email = emailRef.current.trim();
+    const password = passwordRef.current.trim();
+
+    setLoading(true);
+
+    // const {
+    //   data: { session },
+    //   error,
+    // } = await supabase.auth.SignUp({
+    //   email,
+    //   password,
+    // });
+
+    const { data: {session}, error } = await supabase.auth.signUp({
+      email,
+      password,
+    })
+
+    setLoading(false);
+    
+    console.log('session: ', session);
+    console.log('error: ', error);
+    if (error) {
+      Alert.alert('Sign up ', error.message);
     }
   };
 
@@ -38,8 +66,8 @@ export default function SignUp() {
         </View>
         {/* form */}
         <View style={styles.form}>
-          <Text style={{ fontSize: hp(2.2), color: theme.colors.text }}>
-            Please fill the details to create an account 
+          <Text style={{ fontSize: hp(1.6), color: theme.colors.text }}>
+            Please fill the details to create an account
           </Text>
           <Input
             icon={<Icon name="user" size={26} strokeWidth={1.6} />}
@@ -81,16 +109,16 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 45,
+    gap: 40,
     paddingHorizontal: wp(5),
   },
   welcomeText: {
-    fontSize: hp(4),
+    fontSize: hp(3),
     fontWeight: theme.fonts.bold,
     color: theme.colors.text,
   },
   form: {
-    gap: 25,
+    gap: 20,
   },
   footerPassword: {
     textAlign: 'right',
@@ -106,6 +134,6 @@ const styles = StyleSheet.create({
   footerText: {
     textAlign: 'center',
     color: theme.colors.text,
-    // fontSize: hp(1.6)
+    fontSize: hp(1.6),
   },
 });
