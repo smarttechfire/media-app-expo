@@ -9,7 +9,8 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import { theme } from '../constants/theme';
 import { wp, hp } from '../helpers/common';
-import {supabase} from '../utils/supabase'
+import { supabase } from '../utils/supabase';
+
 import ScreenWrapper from '~/components/ScreenWrapper';
 
 export default function Login() {
@@ -25,16 +26,15 @@ export default function Login() {
     const email = emailRef.current.trim();
     const password = passwordRef.current.trim();
     setLoading(true);
-    const {error} = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
-      password
+      password,
     });
     setLoading(false);
-    console.log('error',error);
-    if(error){
-      Alert.alert('login',error.message);
+    console.log('error', error);
+    if (error) {
+      Alert.alert('login', error.message);
     }
-    
   };
 
   return (
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
   footerText: {
     textAlign: 'center',
     color: theme.colors.text,
-    fontSize: hp(1.6)
+    fontSize: hp(1.6),
   },
 });

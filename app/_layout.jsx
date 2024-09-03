@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AuthProvider, useAuth } from '../contaexts/AuthContexr';
+import { AuthProvider, useAuth } from '../contexts/AuthProvider';
 import '../global.css';
 
 import {  Stack, useRouter } from 'expo-router';
