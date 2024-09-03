@@ -12,15 +12,16 @@ import { wp, hp } from '../helpers/common';
 
 import ScreenWrapper from '~/components/ScreenWrapper';
 
-export default function Login() {
+export default function SignUp() {
   const router = useRouter();
+  const nameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
-    if (!emailRef.current || !passwordRef.current) {
-      Alert.alert('Login', 'please fill all the fields!');
+    if (!emailRef.current || !passwordRef.current || nameRef.current) {
+      Alert.alert('Sign Up', 'please fill all the fields!');
       
     }
   };
@@ -32,14 +33,19 @@ export default function Login() {
         <BackButton router={router} />
         {/* Welcome */}
         <View>
-          <Text style={styles.welcomeText}>Hey,</Text>
-          <Text style={styles.welcomeText}>Welcome Back</Text>
+          <Text style={styles.welcomeText}>Let's,</Text>
+          <Text style={styles.welcomeText}>Get Started</Text>
         </View>
         {/* form */}
         <View style={styles.form}>
           <Text style={{ fontSize: hp(2.2), color: theme.colors.text }}>
-            Please login to continue
+            Please fill the details to create an account 
           </Text>
+          <Input
+            icon={<Icon name="user" size={26} strokeWidth={1.6} />}
+            placeholder="Enter your name"
+            onChangeText={(value) => (nameRef.current = value)}
+          />
           <Input
             icon={<Icon name="mail" size={26} strokeWidth={1.6} />}
             placeholder="Enter your email"
@@ -51,20 +57,19 @@ export default function Login() {
             secureTextEntry
             onChangeText={(value) => (passwordRef.current = value)}
           />
-          <Text style={styles.footerPassword}>Forgot Password?</Text>
           {/* button */}
-          <Button title="Login" loading={loading} onPress={onSubmit} />
+          <Button title="Register" loading={loading} onPress={onSubmit} />
         </View>
         {/* footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Don't have an account?</Text>
-          <Pressable onPress={() => router.push('signUp')}>
+          <Text style={styles.footerText}>Already have an account?</Text>
+          <Pressable onPress={() => router.push('login')}>
             <Text
               style={[
                 styles.footerText,
                 { color: theme.colors.primaryDark, fontWeight: theme.fonts.semibold },
               ]}>
-              Sign Up
+              Login
             </Text>
           </Pressable>
         </View>
