@@ -43,10 +43,16 @@ export default function SignUp() {
     const { data: {session}, error } = await supabase.auth.signUp({
       email,
       password,
+      options:{
+        data:{
+          name,
+          
+        }
+      }
     })
 
     setLoading(false);
-    
+
     console.log('session: ', session);
     console.log('error: ', error);
     if (error) {
