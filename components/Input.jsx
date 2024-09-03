@@ -22,12 +22,12 @@ export default function Input(props) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: hp(7.2),
+        height: hp(6.5),
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 0.4,
         borderColor: theme.colors.text,
-        borderRadius: 15,
+        borderRadius: theme.radius.md,
         borderCurve: 'continuous',
         paddingHorizontal: 18,
         gap: 12

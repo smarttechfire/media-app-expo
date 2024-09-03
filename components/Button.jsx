@@ -41,14 +41,14 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: theme.colors.primary,
-    height: hp(9),
+    height: hp(6.5),
     justifyContent: 'center',
     alignItems: 'center',
     borderCurve: 'continuous',
     borderRadius: theme.radius.xl
   },
   text:{
-    fontSize: hp(3.1),
+    fontSize: hp(2),
     color: 'white',
     fontWeight: theme.fonts.bold
   },

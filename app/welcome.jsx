@@ -69,14 +69,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: theme.colors.text,
-    fontSize: hp(4),
+    fontSize: hp(2.6),
     textAlign: 'center',
     fontWeight: theme.fonts.extraBold,
   },
   punchline: {
     textAlign: 'center',
     paddingHorizontal: wp(10),
-    fontSize: hp(2),
+    fontSize: hp(1.7),
     color: theme.colors.text,
   },
   footer: {
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
   loginText: {
     textAlign: 'center',
     color: theme.colors.text,
-    fontSize: hp(2.3),
+    fontSize: hp(1.8),
   },
 });

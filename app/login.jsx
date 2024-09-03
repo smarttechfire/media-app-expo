@@ -37,7 +37,7 @@ export default function Login() {
         </View>
         {/* form */}
         <View style={styles.form}>
-          <Text style={{ fontSize: hp(2.2), color: theme.colors.text }}>
+          <Text style={{ fontSize: hp(1.8), color: theme.colors.text }}>
             Please login to continue
           </Text>
           <Input
@@ -76,16 +76,16 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 45,
+    gap: 40,
     paddingHorizontal: wp(5),
   },
   welcomeText: {
-    fontSize: hp(4),
+    fontSize: hp(3),
     fontWeight: theme.fonts.bold,
     color: theme.colors.text,
   },
   form: {
-    gap: 25,
+    gap: 20,
   },
   footerPassword: {
     textAlign: 'right',
@@ -101,6 +101,6 @@ const styles = StyleSheet.create({
   footerText: {
     textAlign: 'center',
     color: theme.colors.text,
-    // fontSize: hp(1.6)
+    fontSize: hp(1.6)
   },
 });
