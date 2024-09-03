@@ -10,7 +10,7 @@ import { wp, hp } from '../helpers/common';
 import ScreenWrapper from '~/components/ScreenWrapper';
 
 export default function Welcome() {
-  // const router = useRouter();
+  const router = useRouter();
   return (
     <ScreenWrapper>
       <StatusBar style="dark" />
@@ -33,12 +33,12 @@ export default function Welcome() {
           <Button
             title="Getting Started"
             buttonStyle={{ marginHorizontal: wp(3) }}
-            onPress={() => {}}
+            onPress={() => router.push('signUp')}
           />
           {/*  */}
           <View style={styles.bottomTextContainer}>
             <Text style={[styles.loginText]}>Already have an account!</Text>
-            <Pressable>
+            <Pressable onPress={() => router.push('login')}>
               <Text
                 style={[
                   styles.loginText,
