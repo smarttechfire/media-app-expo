@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl
   },
   text:{
-    fontSize: hp(2.5),
+    fontSize: hp(3.1),
     color: 'white',
     fontWeight: theme.fonts.bold
   },
