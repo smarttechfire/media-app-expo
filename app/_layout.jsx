@@ -29,7 +29,8 @@ const MainLayout = () => {
 
         if (userId) {
           setAuth(session.user);
-          await fetchAndSetUserData(userId);
+          await fetchAndSetUserData(userId, session?.user?.email);
+
           router.replace('/home');
         } else {
           console.error('User ID is undefined or invalid');
@@ -46,7 +47,7 @@ const MainLayout = () => {
     };
   }, []);
 
-  const fetchAndSetUserData = async (userId) => {
+  const fetchAndSetUserData = async (userId, email) => {
     try {
       if (!userId) throw new Error('User ID is missing');
 
@@ -54,7 +55,7 @@ const MainLayout = () => {
       console.log(res);
 
       if (res.success) {
-        setUserData(res.data);
+        setUserData(...res.data, email);
       } else {
         console.error('Error fetching user data:', res.msg);
       }
