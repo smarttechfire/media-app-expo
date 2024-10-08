@@ -17,9 +17,17 @@ const Profile = () => {
   const onLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
+      console.log(error);
+
       Alert.alert('Sign Out', 'Error signing out!');
     } else {
-      console.log('logout done');
+      // Clear the user state after logout
+      setAuth(null); // Reset the authentication state
+
+      // Optionally, navigate the user to the login page
+      router.push('/login'); // Use the correct route for your login page
+
+      console.log('Logout successful');
     }
   };
   const handleLogout = async () => {
