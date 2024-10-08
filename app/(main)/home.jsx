@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -11,6 +12,7 @@ import { supabase } from '../../utils/supabase';
 
 export default function Home() {
   const { user, setAuth } = useAuth();
+  const router = useRouter();
   console.log('user', user.id);
 
   const { session } = useAuth();
@@ -33,13 +35,13 @@ export default function Home() {
       <View style={styles.header}>
         <Text style={styles.title}>LinkUp</Text>
         <View style={styles.icons}>
-          <Pressable>
+          <Pressable onPress={() => router.push('notifications')}>
             <Icon name="heart" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => router.push('newPost')}>
             <Icon name="plus" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => router.push('profile')}>
             <Avatar
               uri={user?.image}
               size={hp(4.3)}
