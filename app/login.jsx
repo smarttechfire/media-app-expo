@@ -31,7 +31,7 @@ export default function Login() {
       password,
     });
     setLoading(false);
-    console.log('error', error);
+
     if (error) {
       Alert.alert('login', error.message);
     }
