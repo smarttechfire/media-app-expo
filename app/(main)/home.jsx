@@ -8,12 +8,19 @@ import ScreenWrapper from '../../components/ScreenWrapper';
 import { theme } from '../../constants/theme';
 import { useAuth } from '../../contexts/AuthProvider';
 import { hp, wp } from '../../helpers/common';
-import { supabase } from '../../utils/supabase';
 
 export default function Home() {
   const { user, setAuth } = useAuth();
   const router = useRouter();
-  console.log('user', user.id);
+  // Error handling: Check if user object exists and has id
+  useEffect(() => {
+    if (!user || !user.id) {
+      Alert.alert('Error', 'User data is not available.');
+      console.error('User is not defined or user.id is missing.');
+    } else {
+      console.log('user', user.id);
+    }
+  }, [user]);
 
   const { session } = useAuth();
 
@@ -21,21 +28,13 @@ export default function Home() {
     if (session) console.log('My Login success');
   }, [session]);
 
-  const onLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      Alert.alert('Sign Out', 'Error signing out!');
-    } else {
-      console.log('logout done');
-    }
-  };
   return (
     <ScreenWrapper>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>LinkUp</Text>
         <View style={styles.icons}>
-          <Pressable onPress={() => router.push('notifications')}>
+          <Pressable onPress={() => router.push('notifiactions')}>
             <Icon name="heart" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
           </Pressable>
           <Pressable onPress={() => router.push('newPost')}>
