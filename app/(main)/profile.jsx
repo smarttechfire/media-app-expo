@@ -1,8 +1,9 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Icon from '../../assets/icons';
+import Avatar from '../../components/Avatar';
 import Header from '../../components/Header';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { theme } from '../../constants/theme';
@@ -48,10 +49,39 @@ const UserHeader = ({ user, router, handleLogout }) => {
     <View
       style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: wp(4), paddingTop: wp(2) }}>
       <View>
-        <Header title="Profile" showBackButton />
+        <Header title="Profile" mb={30} />
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Icon name="logout" color={theme.colors.rose} />
         </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <View style={{ gap: 15 }}>
+          <View style={styles.avatarContainer}>
+            <Avatar uri={user?.image} size={hp(12)} rounded={theme.radius.xxl * 1.4} />
+            <Pressable style={styles.editIcon} onPress={() => router.push('editProfile')}>
+              <Icon name="edit" strokeWidth={2.5} size={20} />
+            </Pressable>
+          </View>
+          {/* username and address */}
+          <View style={{ alignItems: 'center', gap: 4 }}>
+            <Text style={styles.userName}>{user && user.name}</Text>
+            <Text style={styles.infoText}>{user && user.address}</Text>
+          </View>
+          {/* email,phone,bio */}
+          <View style={{ gap: 10 }}>
+            <View style={styles.info}>
+              <Icon name="mail" size={20} color={theme.colors.textLight} />
+              <Text style={styles.infoText}>{user && user.email}</Text>
+            </View>
+            {user && user.phoneNumber && (
+              <View style={styles.info}>
+                <Icon name="call" size={20} color={theme.colors.textLight} />
+                <Text style={styles.infoText}>{user && user.phoneNumber}</Text>
+              </View>
+            )}
+            {user && user.bio && <Text style={styles.infoText}>{user.bio}</Text>}
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -84,11 +114,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: 'white',
     shadowColor: theme.colors.textLight,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    elevation: 7,
   },
   userName: {
     fontSize: hp(3),
     fontWeight: '500',
     color: theme.colors.textDark,
+    textTransform: 'capitalize',
   },
   info: {
     flexDirection: 'row',
