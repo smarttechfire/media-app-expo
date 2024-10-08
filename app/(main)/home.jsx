@@ -12,20 +12,24 @@ import { hp, wp } from '../../helpers/common';
 export default function Home() {
   const { user, setAuth } = useAuth();
   const router = useRouter();
+  console.log('home page user', user);
   // Error handling: Check if user object exists and has id
-  useEffect(() => {
-    if (!user || !user.id) {
-      Alert.alert('Error', 'User data is not available.');
-      console.error('User is not defined or user.id is missing.');
-    } else {
-      console.log('user', user);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user || !user.id) {
+  //     Alert.alert('Error', 'User data is not available.');
+  //     console.error('User is not defined or user.id is missing.');
+  //   } else {
+  //     console.log('user', user);
+  //   }
+  // }, [user]);
 
   const { session } = useAuth();
 
   useEffect(() => {
-    if (session) console.log('My Login success');
+    if (session) {
+      console.log('My Login success');
+    } else {
+    }
   }, [session]);
 
   return (
