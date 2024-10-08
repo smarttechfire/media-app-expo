@@ -55,7 +55,7 @@ const MainLayout = () => {
       console.log(res);
 
       if (res.success) {
-        setUserData(...res.data, email);
+        setUserData({ ...res.data, email });
       } else {
         console.error('Error fetching user data:', res.msg);
       }
