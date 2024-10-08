@@ -13,7 +13,6 @@ import { supabase } from '../utils/supabase';
 
 import ScreenWrapper from '~/components/ScreenWrapper';
 
-
 export default function SignUp() {
   const router = useRouter();
   const nameRef = useRef('');
@@ -40,16 +39,18 @@ export default function SignUp() {
     //   password,
     // });
 
-    const { data: {session}, error } = await supabase.auth.signUp({
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
       email,
       password,
-      options:{
-        data:{
+      options: {
+        data: {
           name,
-          
-        }
-      }
-    })
+        },
+      },
+    });
 
     setLoading(false);
 
