@@ -18,7 +18,7 @@ export default function Home() {
       Alert.alert('Error', 'User data is not available.');
       console.error('User is not defined or user.id is missing.');
     } else {
-      console.log('user', user.id);
+      console.log('user', user);
     }
   }, [user]);
 
