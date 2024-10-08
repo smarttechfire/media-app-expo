@@ -1,55 +1,69 @@
+import { Stack, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 
+import getUserData from './../services/userServices';
 import { AuthProvider, useAuth } from '../contexts/AuthProvider';
 import '../global.css';
-
-import { Stack, useRouter } from 'expo-router';
-
 import { supabase } from '../utils/supabase';
 
-import getUserData from './../services/userServices'
-
-
-const _layout = () => {
+const Layout = () => {
   return (
     <AuthProvider>
       <MainLayout />
     </AuthProvider>
-  )
-}
-
-
+  );
+};
 
 const MainLayout = () => {
-  const {  setAuth, setUserData } = useAuth();
+  const { setAuth, setUserData } = useAuth();
   const router = useRouter();
+
   useEffect(() => {
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       console.log('session user: ', session?.user?.id);
-      if (session) {
-        setAuth(session?.user);
-        updateUserData(session?.user);
-        router.replace('/home');
-        // console.log('Email', session?.user);
+      if (session?.user) {
+        const userId = session.user.id;
+        console.log('sathish id', userId);
+
+        if (userId) {
+          setAuth(session.user);
+          await fetchAndSetUserData(userId);
+          router.replace('/home');
+        } else {
+          console.error('User ID is undefined or invalid');
+        }
       } else {
         setAuth(null);
-        router.replace('/welcome')
+        router.replace('/welcome');
       }
-    })
-  },[])
+    });
 
-  
+    // Cleanup the listener when the component unmounts
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, []);
 
-  const updateUserData = async (user) => {
-    const res = await getUserData();
-    if (res.success) setUserData(res.data);
-    console.log(res.data);
-    
-    
-    
-  }
+  const fetchAndSetUserData = async (userId) => {
+    try {
+      if (!userId) throw new Error('User ID is missing');
+
+      const res = await getUserData(userId); // Ensure userId is passed to the service
+      console.log(res);
+
+      if (res.success) {
+        setUserData(res.data);
+      } else {
+        console.error('Error fetching user data:', res.msg);
+      }
+    } catch (error) {
+      console.error('Fetching user data failed:', error.message);
+    }
+  };
 
   return <Stack screenOptions={{ headerShown: false }} />;
-}
+};
 
-export default _layout;
+export default Layout;
